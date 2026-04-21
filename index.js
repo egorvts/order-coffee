@@ -1,6 +1,9 @@
 const beverageForm = document.querySelector(".beverage");
 const addButton = document.querySelector(".add-button");
 const orderForm = document.querySelector("form");
+const modal = document.querySelector(".modal");
+const modalOverlay = document.querySelector(".modal-overlay");
+const modalCloseButton = document.querySelector(".modal-close-button");
 
 const forms = [beverageForm];
 let beverageNumber = 1;
@@ -51,4 +54,15 @@ orderForm.addEventListener("click", function (event) {
     }
 
     form.remove();
+});
+
+orderForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    modal.classList.remove("hidden");
+    modalOverlay.classList.remove("hidden");
+});
+
+modalCloseButton.addEventListener("click", function () {
+    modal.classList.add("hidden");
+    modalOverlay.classList.add("hidden");
 });

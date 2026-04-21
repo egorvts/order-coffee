@@ -18,7 +18,7 @@
     <fieldset class="beverage">
         <div class="beverage-header">
             <h4 class="beverage-count">Напиток №1</h4>
-            <span class="close">&#x274c</span>
+            <span class="close">&#x2715;</span>
         </div>
         <label class="field">
             <span class="label-text">Я буду</span>
@@ -84,6 +84,12 @@
         </div>
     </fieldset>
 </form>
+
+<div class="modal-overlay hidden"></div>
+<div class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button type="button" class="modal-close-button" aria-label="Закрыть">&#x2715;</button>
+    <p id="modal-title" class="modal-text">Заказ принят!</p>
+</div>
 
 <script src="index.js"></script>
 </body>

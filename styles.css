@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .field {
     display: block;
     margin-bottom: 10px;
@@ -49,3 +50,41 @@
     border-radius: 5px;
 }
 
+.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.modal-text {
+    margin: 12px 0 0;
+    font-size: 20px;
+}
