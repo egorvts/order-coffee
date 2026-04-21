@@ -4,9 +4,30 @@ const orderForm = document.querySelector("form");
 const modal = document.querySelector(".modal");
 const modalOverlay = document.querySelector(".modal-overlay");
 const modalCloseButton = document.querySelector(".modal-close-button");
+const modalText = document.querySelector(".modal-text");
 
 const forms = [beverageForm];
 let beverageNumber = 1;
+
+function getBeverageWord(number) {
+    const lastTwoDigits = number % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+        return "напитков";
+    }
+
+    const lastDigit = number % 10;
+
+    if (lastDigit === 1) {
+        return "напиток";
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+        return "напитка";
+    }
+
+    return "напитков";
+}
 
 function prepareBeverageForm(form, number) {
     Array.from(form.classList).forEach((className) => {
@@ -58,6 +79,9 @@ orderForm.addEventListener("click", function (event) {
 
 orderForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    const beverageCount = forms.length;
+
+    modalText.textContent = `Вы заказали ${beverageCount} ${getBeverageWord(beverageCount)}`;
     modal.classList.remove("hidden");
     modalOverlay.classList.remove("hidden");
 });
