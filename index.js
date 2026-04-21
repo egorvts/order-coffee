@@ -1,13 +1,21 @@
-const beverage_form = document.querySelector(".beverage");
+const beverageForm = document.querySelector(".beverage");
 
-const add_button = document.querySelector(".add-button");
+const addButton = document.querySelector(".add-button");
 
-let beverage_count = 1;
+const forms = [ { beverageForm, number: 1 }];
 
-add_button.addEventListener("click", function () {
-    const new_beverage_form = beverage_form.cloneNode(true);
-    beverage_count++;
-    new_beverage_form.querySelector(".beverage-count").textContent =
-        `Напиток №${beverage_count}`;
-    beverage_form.parentNode.appendChild(new_beverage_form);
+addButton.addEventListener("click", function () {
+    const newBeverageForm = beverageForm.cloneNode(true);
+    forms.append( {newBeverageForm, number: forms.length + 1});
+    newBeverageForm.querySelector(".beverage-count").textContent =
+        `Напиток №${forms.length + 1}`;
+    beverageForm.parentNode.appendChild(newBeverageForm);
 });
+
+const closeButton = document.querySelector(".close");
+closeButton.addEventListener("click", function () {
+    if (forms.length > 1) {
+        const lastForm = forms.pop();
+        lastForm.beverageForm.remove();
+    }
+})
