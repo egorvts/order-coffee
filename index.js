@@ -36,19 +36,53 @@ function getSelectedText(select) {
 
 function getMilkText(form) {
     const milk = form.querySelector('input[type="radio"]:checked');
-    return milk.closest("label")?.querySelector("span")?.textContent.trim() || "";
+    return (
+        milk.closest("label")?.querySelector("span")?.textContent.trim() || ""
+    );
 }
 
 function getOptionsText(form) {
-    const options = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'));
+    const options = Array.from(
+        form.querySelectorAll('input[type="checkbox"]:checked'),
+    );
 
     if (options.length === 0) {
         return "";
     }
 
     return options
-        .map((checkbox) => checkbox.closest("label")?.querySelector("span")?.textContent.trim() || "")
+        .map(
+            (checkbox) =>
+                checkbox
+                    .closest("label")
+                    ?.querySelector("span")
+                    ?.textContent.trim() || "",
+        )
         .join(", ");
+}
+
+function highlightWishes(text) {
+    const words = [
+        "срочно",
+        "быстрее",
+        "побыстрее",
+        "скорее",
+        "поскорее",
+        "очень нужно",
+    ];
+    let result = text;
+
+    words.forEach((word) => {
+        const regex = new RegExp(`(${word})`, "gi");
+        result = result.replace(regex, "<b>$1</b>");
+    });
+
+    return result;
+}
+
+function getWishesText(form) {
+    const textarea = form.querySelector(".wishes-textarea");
+    return textarea ? textarea.value : "";
 }
 
 function renderOrderTable() {
@@ -61,12 +95,16 @@ function renderOrderTable() {
         const beverageCell = document.createElement("td");
         const milkCell = document.createElement("td");
         const optionsCell = document.createElement("td");
+        const wishesCell = document.createElement("td");
 
-        beverageCell.textContent = getSelectedText(form.querySelector("select"));
+        beverageCell.textContent = getSelectedText(
+            form.querySelector("select"),
+        );
         milkCell.textContent = getMilkText(form) || "—";
         optionsCell.textContent = getOptionsText(form) || "—";
+        wishesCell.innerHTML = highlightWishes(getWishesText(form)) || "—";
 
-        row.append(beverageCell, milkCell, optionsCell);
+        row.append(beverageCell, milkCell, optionsCell, wishesCell);
         orderTableBody.appendChild(row);
     });
 }
@@ -88,6 +126,15 @@ function prepareBeverageForm(form, number) {
 
         input.name = `${input.dataset.baseName}-${number}`;
     });
+
+    const textarea = form.querySelector(".wishes-textarea");
+    const wishesOutput = form.querySelector(".wishes-output");
+
+    if (textarea && wishesOutput) {
+        textarea.addEventListener("input", function () {
+            wishesOutput.innerHTML = highlightWishes(this.value) || "";
+        });
+    }
 }
 
 prepareBeverageForm(beverageForm, beverageNumber);
