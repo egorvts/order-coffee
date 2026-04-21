@@ -88,3 +88,21 @@
     margin: 12px 0 0;
     font-size: 20px;
 }
+
+.order-table {
+    width: 100%;
+    margin-top: 16px;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.order-table th {
+    background: #f7f7f7;
+}
